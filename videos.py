@@ -9,9 +9,6 @@ from urllib.parse import urlparse
 
 class Videos():
 
-    BASE_URL = "https://pornhub.com"
-    CAT_URL = "/sfw"
-
     def __init__(self):
         self.data = []
 
@@ -24,18 +21,13 @@ class Videos():
         r = requests.get("https://pornhub.com/sfw", params={"page" : page_num}, headers={ "Content-Type" : "text/html; charset=UTF-8" })
         html = r.text 
         return BeautifulSoup(html, "lxml")
-        # print(soup)
 
     def scrapeLiveVideos(self, soup_data):
-        # scraplivideos
-        # It has to look only inside the div 
-        # with id videoCategory
         try:
             true_soup = soup_data.select_one("ul#videoCategory")
             return true_soup.find_all("li", { "class" : re.compile(".*videoblock videoBox.*") } )
         except Exception as e:
             pass
-        # print(soup_data)
 
     def getSingleVideoPage(self, url):
         r = requests.get(url)
@@ -55,17 +47,11 @@ class Videos():
                 "message": message.span.get_text(),
                 "img": img.get('data-src')
             }
-            print(comment)
             return comment
         except Exception as e:
             pass 
-
-    
-
+        
     def scrapeVideoInfo(self, div_el):
-
-       
-
         data = {
             "name": None,
             "url": None,
@@ -74,8 +60,7 @@ class Videos():
             "background": None,
             "viewkey": None
         }
-
-
+        
         # scrape url and name from title html element
         for a_tag in div_el.find_all("a", href=True):
             try:
@@ -105,14 +90,13 @@ class Videos():
             except Exception as e:
                 pass
         
-        # scrap rating
+        # rating
         for div_tag in div_el.find_all("div", { "class" : "value" } ):
             try:
                 data["rating"] = int( str(div_tag).split(">")[1].split("%")[0] )
                 break
             except Exception as e:
                 pass
-
 
         return data
 
