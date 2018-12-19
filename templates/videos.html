@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block videos %}
+
+<div class="grid-container">
+{% for video in videos %}
+<div class="grid-item">
+        
+        <a href="/play?viewkey={{ video['viewkey'] }}"><img src="{{ video['background'] }}"></a><br>
+            <h2>{{ video['name'] }}</h2><br>
+            <a id="risky_click" href="/play?viewkey={{ video['viewkey'] }}">Click here to watch on SFW</a><br>
+            Duration: {{ video['duration'] }}<br>
+            Rating: {{ video['rating'] }}<br>
+            PornHub Link: <a href="{{ video['url'] }}">Click Here</a><br>
+            <br><br>
+    
+        
+
+</div>
+{% endfor %}
+</div>
+<div class="nav">
+        <h1><a href="/{{ page + 1 }}">More</a></h1>
+</div>
+{% endblock %}

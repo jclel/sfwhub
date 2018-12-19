@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block playvideo %}
+
+
+<div class="embed">
+<iframe src="https://www.pornhub.com/embed/{{ viewkey }}" frameborder="0" scrolling="no" allowfullscreen></iframe>
+</div>
+
+<div class="comment_container">
+<p id="comment_label">Top Comment from PornHub</p>
+
+<div class="comment">
+{% if top_comment %}
+<div class="commment-image">
+<img src="{{ top_comment['img'] }}">
+</div>
+
+
+<div class="comment-message">
+<p id="username">{{ top_comment['username'] }} <span id="date">|    {{ top_comment['date'] }}</span></p>
+<p id="message">{{ top_comment['message'] }}</p>
+</div>
+{% else %}
+<div>
+    N/A
+</div>
+{% endif %}
+</div>
+
+</div>
+{% endblock %}
